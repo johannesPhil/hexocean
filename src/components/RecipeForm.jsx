@@ -92,6 +92,7 @@ const RecipeForm = () => {
         .then((data) => {
           console.log(data);
           if (data.id) {
+            setError("");
             setResponse("Recipe successfully submitted");
           }
         });
