@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
-
-const RecipeForm = () => {
+const RecipeForm = ({ setShowModal }) => {
   const initialValues = {
     name: "",
     type: "",
@@ -94,14 +92,13 @@ const RecipeForm = () => {
           if (data.id) {
             setError("");
             setResponse("Recipe successfully submitted");
+            setShowModal(true);
           }
         });
     } catch (error) {
       console.log(error);
     }
   };
-
-  // useEffect(() => {}, [error]);
 
   return (
     <div className="recipeForm  ">
@@ -244,8 +241,9 @@ const RecipeForm = () => {
           </>
         )}
         {error && <div className="error">{error}</div>}
-        {response && <p className="response">{response}</p>}
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn__submit">
+          Submit
+        </button>
       </form>
     </div>
   );

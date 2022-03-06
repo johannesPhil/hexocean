@@ -6,6 +6,11 @@ body {
   font-family: "DM Sans", sans-serif;
 }
 
+:root {
+  --color-primary: #ed1f3e;
+  --color-secondary: #2a3a64;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -13,16 +18,12 @@ body {
 .wrapper {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: auto;
   display: flex;
 }
 
 .error {
-  color: #ed1f3e;
-  font-size: medium;
-}
-.response {
-  color: #0bda51;
+  color: var(--color-primary);
   font-size: medium;
 }
 
@@ -49,11 +50,11 @@ body {
 }
 
 .recipeForm__header {
-  color: #ed1f3e;
+  color: var(--color-primary);
 }
 
 .recipeForm__subtitle {
-  color: #2a3a64;
+  color: var(--color-secondary);
   font-size: 30px;
   line-height: 2rem;
   font-weight: 700;
@@ -64,7 +65,7 @@ body {
   flex-direction: column;
   gap: 0.5rem;
   margin: 1rem 0;
-  color: #2a3a64;
+  color: var(--color-secondary);
 }
 
 .duration {
@@ -83,18 +84,17 @@ form {
 
 input:not(input[type="range"]),
 select,
-button {
+.btn__submit {
   padding: 1rem 0.5rem;
   border: transparent;
-  border-bottom: solid 1px #2a3a64;
+  border-bottom: solid 1px var(--color-secondary);
   outline: none;
   background: transparent;
   transition: all 0.5s;
-}
-
-form input:focus {
-  background-color: rgb(255, 255, 255);
-  color: #2a3a64;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
 }
 
 select {
@@ -102,11 +102,16 @@ select {
   -moz-appearance: none;
   appearance: none;
   background-color: transparent;
-  color: #2a3a64;
+  color: var(--color-secondary);
 }
 
 select:active {
   background-color: rgb(90, 89, 89);
+}
+
+input:not(input[type="range"]):focus,
+select:focus {
+  border-bottom: solid 1px var(--color-primary);
 }
 
 input[type="number"] {
@@ -126,9 +131,9 @@ input[type="number"]::-webkit-outer-spin-button {
   background: rgb(42, 58, 100);
   background: linear-gradient(
     90deg,
-    rgba(42, 58, 100, 1) 0%,
-    rgba(121, 9, 9, 1) 50%,
-    rgba(255, 0, 9, 1) 100%
+    rgba(0, 0, 255, 1) 0%,
+    rgba(245, 118, 26, 1) 50%,
+    rgba(226, 61, 40, 1) 100%
   );
   outline: none;
   opacity: 0.8;
@@ -136,6 +141,7 @@ input[type="number"]::-webkit-outer-spin-button {
   transition: opacity 0.2s;
   border-radius: 10px;
   position: relative;
+  border: #ed1f3e;
 }
 .slider-container {
   position: relative;
@@ -150,7 +156,7 @@ input[type="number"]::-webkit-outer-spin-button {
   appearance: none;
   width: 25px;
   height: 25px;
-  background: #2a3a64;
+  background: rgb(12, 12, 12);
   cursor: pointer;
   border-radius: 15px;
 }
@@ -160,28 +166,183 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 25px;
   background: #2a3a64;
   cursor: pointer;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
 }
 
-button {
-  background-color: #959595;
+.btn__submit {
+  background-color: var(--color-secondary);
   border: transparent;
   border-radius: 50px;
   color: #fff;
-  transition: all 0.8s;
   cursor: pointer;
   font-family: "DM Sans";
   font-size: medium;
   padding: 10px 30px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
 }
 
-button:hover {
-  background-color: #2a3a64;
+.btn__submit:hover {
+  background-color: var(--color-primary);
   color: #fff;
 }
 
 .form-control {
   height: 2rem;
 }
+
+/* MODAL HEADER */
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background-color: #1c1a1adb !important;
+}
+
+.modal-body {
+  padding: 0.5rem 1rem;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  padding: 1.4rem 2rem;
+  padding-bottom: unset;
+  border-bottom: unset;
+}
+.modal-header .modal-title {
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 1.9rem;
+  text-transform: uppercase;
+  color: #353535;
+}
+
+.modal-header .close-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #f5f5f5;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.modal-dialog {
+  margin: unset;
+  position: relative;
+  width: 38%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+
+.modal-content {
+  width: 100%;
+  background: #ffffff;
+  border: 1px solid #f5f5f5;
+  box-sizing: border-box;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+svg {
+  width: unset;
+}
+
+.u-pl-3 {
+  padding-left: 3rem !important;
+}
+
+.modal-footer {
+  border-top: unset;
+  padding-bottom: 2rem;
+}
+
+.modal-footer.center-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-footer.center-column > :not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.btn__primary {
+  padding: 1.2rem 3rem;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: var(--color-primary);
+  border: none;
+  box-sizing: border-box;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.illustration {
+  text-align: center;
+}
+
+.text-heading {
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 2.5rem;
+  text-align: center;
+  color: var(--color-secondary);
+  margin-bottom: 1.5rem;
+}
+.desc {
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 165%;
+  text-align: center;
+  color: #555555;
+}
+
+svg.success {
+  width: 100px;
+  height: 100px;
+}
+
+svg.success.animate path {
+  animation: dash 0.75s linear both;
+  animation-delay: 0.5s;
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 210;
+  }
+  75% {
+    stroke-dashoffset: -220;
+  }
+  100% {
+    stroke-dashoffset: -205;
+  }
+}
+
+/* END OF MODAL*/
 
 @media screen and (min-width: 761px) {
   .media {
@@ -239,13 +400,20 @@ button:hover {
     font-size: small;
   }
 
-  button {
+  .btn__submit {
     width: 100%;
     margin: 5% 0;
+  }
+  .modal-dialog {
+    width: 56%;
   }
 }
 @media screen and (max-width: 500px) {
   .recipeForm {
     padding: 1rem;
+  }
+
+  .modal-dialog {
+    width: 80%;
   }
 }
