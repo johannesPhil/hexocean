@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-const RecipeForm = ({ setShowModal }) => {
+const RecipeForm = ({
+  setShowModal,
+  setLoading,
+  setSuccess,
+  setErrorResponse,
+}) => {
   const initialValues = {
     name: "",
     type: "",
@@ -53,6 +58,7 @@ const RecipeForm = ({ setShowModal }) => {
         } else {
           recipeData.no_of_slices = parseInt(values.pizzaSlice);
           recipeData.diameter = parseInt(values.diameter);
+          setShowModal(true);
           await sendRecipe(recipeData);
         }
       } else if (values.type === "soup") {
@@ -62,6 +68,7 @@ const RecipeForm = ({ setShowModal }) => {
           return;
         }
         recipeData.spiciness_scale = parseInt(values.spiciness);
+        setShowModal(true);
         await sendRecipe(recipeData);
       } else if (values.type === "sandwich") {
         recipeData.type = values.type;
@@ -70,9 +77,9 @@ const RecipeForm = ({ setShowModal }) => {
           return;
         }
         recipeData.slices_of_bread = parseInt(values.breadSlice);
+        setShowModal(true);
         await sendRecipe(recipeData);
       }
-      console.log(recipeData);
     }
   };
 
@@ -91,12 +98,13 @@ const RecipeForm = ({ setShowModal }) => {
           console.log(data);
           if (data.id) {
             setError("");
-            setResponse("Recipe successfully submitted");
-            setShowModal(true);
+            setLoading(false);
+            setSuccess(true);
           }
         });
     } catch (error) {
       console.log(error);
+      setErrorResponse(true);
     }
   };
 

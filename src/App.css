@@ -320,6 +320,21 @@ svg {
   color: #555555;
 }
 
+.loading {
+  width: 100px;
+  height: 100px;
+  border: solid 10px #a5d7a7;
+  border: 4px solid #fff;
+  border-top: 4px solid #a5d7a7;
+  border-radius: 50%;
+  margin: 10px auto;
+  animation: spin 1s linear infinite;
+}
+
+.error-response {
+  color: var(--color-primary);
+}
+
 svg.success {
   width: 100px;
   height: 100px;
@@ -339,6 +354,15 @@ svg.success.animate path {
   }
   100% {
     stroke-dashoffset: -205;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 

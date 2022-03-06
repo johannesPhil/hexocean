@@ -1,6 +1,6 @@
 import React from "react";
 
-const SuccessModal = ({ setShowModal }) => {
+const SuccessModal = ({ setShowModal, loading, errorResponse, success }) => {
   const closeModal = () => {
     setShowModal(false);
   };
@@ -42,63 +42,78 @@ const SuccessModal = ({ setShowModal }) => {
           </div>
           <div className="modal-body">
             <div className="illustration">
-              <svg viewBox="0 0 100 100" className="success animate">
-                <filter id="dropshadow" height="100%">
-                  <feGaussianBlur
-                    in="SourceAlpha"
-                    stdDeviation="3"
-                    result="blur"
-                  />
-                  <feFlood
-                    floodColor="rgba(76, 175, 80, 1)"
-                    floodOpacity="0.5"
-                    result="color"
-                  />
-                  <feComposite
-                    in="color"
-                    in2="blur"
-                    operator="in"
-                    result="blur"
-                  />
-                  <feMerge>
-                    <feMergeNode />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
+              {loading && <div className="loading"></div>}
+              {success && (
+                <svg viewBox="0 0 100 100" className="success animate">
+                  <filter id="dropshadow" height="100%">
+                    <feGaussianBlur
+                      in="SourceAlpha"
+                      stdDeviation="3"
+                      result="blur"
+                    />
+                    <feFlood
+                      floodColor="rgba(76, 175, 80, 1)"
+                      floodOpacity="0.5"
+                      result="color"
+                    />
+                    <feComposite
+                      in="color"
+                      in2="blur"
+                      operator="in"
+                      result="blur"
+                    />
+                    <feMerge>
+                      <feMergeNode />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
 
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="46.5"
-                  fill="none"
-                  stroke="rgba(76, 175, 80, 0.5)"
-                  strokeWidth="5"
-                />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="46.5"
+                    fill="none"
+                    stroke="rgba(76, 175, 80, 0.5)"
+                    strokeWidth="5"
+                  />
 
-                <path
-                  d="M67,93 A46.5,46.5 0,1,0 7,32 L43,67 L88,19"
-                  fill="none"
-                  stroke="rgba(76, 175, 80, 1)"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                  strokeDasharray="80 1000"
-                  strokeDashoffset="-220"
-                  style={{ filter: "url(#dropshadow)" }}
-                />
-              </svg>
+                  <path
+                    d="M67,93 A46.5,46.5 0,1,0 7,32 L43,67 L88,19"
+                    fill="none"
+                    stroke="rgba(76, 175, 80, 1)"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    strokeDasharray="80 1000"
+                    strokeDashoffset="-220"
+                    style={{ filter: "url(#dropshadow)" }}
+                  />
+                </svg>
+              )}
             </div>
-            <p className="text-heading">Successful</p>
-            <p className="desc">Your recipe has been submitted</p>
+            {success && (
+              <>
+                <p className="text-heading">Successful</p>
+                <p className="desc">Your recipe has been submitted</p>
+              </>
+            )}
+            {loading && <p className="text-heading">Submitting...</p>}
+            {errorResponse && (
+              <p className="text-heading error-response">
+                Recipe submission unsuccessful
+              </p>
+            )}
           </div>
-          <div className="modal-footer center-column">
-            {/* <!-- <button type="button" className="btn__primary">
-                Save Changes
-              </button> -->
-          <!-- <button type="button" className="btn__secondary" data-dismiss="modal">Done</button> --> */}
-            <button type="button" className="btn__primary" onClick={closeModal}>
-              Done
-            </button>
-          </div>
+          {success && (
+            <div className="modal-footer center-column">
+              <button
+                type="button"
+                className="btn__primary"
+                onClick={closeModal}
+              >
+                Done
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
